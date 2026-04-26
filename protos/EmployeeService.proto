@@ -18,7 +18,14 @@ service EmployeeService {
   rpc DeleteEmployee (EmployeeID) returns (StatusReply) {}
   // List all employees
   rpc ListAllEmployees (EmptyMessage) returns (EmployeeDataList) {}
-  
+  // Search employees by name (partial match)
+  rpc SearchEmployeeByName (EmployeeNameSearch) returns (EmployeeDataList) {}
+  // Update an employee´s name
+  rpc UpdateEmployeeName (EmployeeNameUpdate) returns (StatusReply) {}
+  // Get employees filtered by title
+  rpc GetEmployeesByTitle (EmployeeTitleFilter) returns (EmployeeDataList) {}
+  // Return total number of employees
+  rpc CountEmployees (EmptyMessage) returns (EmployeeCount) {}
 }
 
 message EmployeeData {
@@ -44,4 +51,21 @@ message EmptyMessage{}
 
 message EmployeeDataList{
   repeated EmployeeData employee_data = 1;
+}
+
+message EmployeeNameSearch {
+  string name = 1;
+}
+
+message EmployeeNameUpdate {
+  uint32 id = 1;
+  string name = 2;
+}
+
+message EmployeeTitleFilter {
+  string title = 1;
+}
+
+message EmployeeCount {
+  uint32 count = 1;
 }
